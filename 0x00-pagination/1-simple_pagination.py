@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+"""Module defines a class Server that mocks an API endpoint"""
 import csv
 import math
 from typing import List
