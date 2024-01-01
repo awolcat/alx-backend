@@ -46,12 +46,12 @@ class Server:
         assert index < len(indexed_data)
         data = {}
         try:
-            # keys = list(indexed_data.keys())[index: index + page_size]
+            keys = list(indexed_data.keys())[index: index + page_size]
             values = list(indexed_data.values())[index: index + page_size]
             data = dict.fromkeys(keys, values)
         except Exception as e:
             pass
         finally:
-            result = {'index': index, 'next_index': index + len(values),
+            result = {'index': index, 'next_index': keys[-1] + 1,
                       'page_size': len(values), 'data': values}
             return result
