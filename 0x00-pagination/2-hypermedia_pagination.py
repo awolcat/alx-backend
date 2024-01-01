@@ -41,17 +41,19 @@ class Server:
             return result
 
     def get_hyper(self, page: int = 1, page_size: int = 10) -> List[List]:
-        """Similar to get_page() above 
+        """Similar to get_page() above
         but returns hypermedia(references to some info?)
         """
-        hyper = {'page_size': 0, 'page': 0, 'data': [], 'next_page': 0,
-                 'prev_page': 0, 'total_pages': 0}
+        data = {'page_size': 0, 'page': 0, 'data': [], 'next_page': 0,
+                'prev_page': 0, 'total_pages': 0}
         page_data = self.get_page(page, page_size)
-        hyper['page_size'] = len(page_data)
-        hyper['page'] = page
-        hyper['data'] = page_data
-        hyper['prev_page'] = page - 1 if page >= 2 else None
-        hyper['next_page'] = page + 1 if page_size * page < len(self.dataset()) else None
-        hyper['total_pages'] = math.ceil(len(self.dataset()) / page_size)
-        return hyper
-
+        data['page_size'] = len(page_data)
+        data['page'] = page
+        data['data'] = page_data
+        data['prev_page'] = page - 1 if page >= 2 else None
+        if page_size * page < len(self.dataset()):
+            data['next_page'] = page + 1
+        else:
+            data['next_page'] = None
+        data['total_pages'] = math.ceil(len(self.dataset()) / page_size)
+        return data
