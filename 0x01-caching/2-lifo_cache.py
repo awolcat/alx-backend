@@ -17,7 +17,7 @@ class LIFOCache(BaseCaching):
         if key is None or item is None:
             pass
         else:
-            if len(self.cache_data) == BaseCaching.MAX_ITEMS:
+            if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
                 cache_keys = list(self.cache_data.keys())
                 time = self.keyMeta[cache_keys[0]]
                 for kc in cache_keys:

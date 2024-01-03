@@ -16,7 +16,7 @@ class FIFOCache(BaseCaching):
         """Add item to cache with key key"""
         if key is None or item is None:
             return
-        if len(self.cache_data) == BaseCaching.MAX_ITEMS:
+        if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
             # Delete oldest key, value pair
             cache_keys = list(self.cache_data.keys())
             time = datetime.now()
