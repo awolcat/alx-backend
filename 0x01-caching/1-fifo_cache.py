@@ -27,7 +27,7 @@ class FIFOCache(BaseCaching):
             # first_in_key = self.newKeys[0]
             if key not in cache_keys:
                 self.cache_data.pop(first_in_key)
-                print(f"DICARD {first_in_key}")
+                print(f"DISCARD: {first_in_key}")
         self.cache_data.update({key: item})
         self.keyMeta.update({key: datetime.now()})
 

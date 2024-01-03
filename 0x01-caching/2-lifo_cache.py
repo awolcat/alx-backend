@@ -27,7 +27,7 @@ class LIFOCache(BaseCaching):
                 # last_in_key = cache_keys[-1]
                 if key not in cache_keys:
                     self.cache_data.pop(last_in_key)
-                    print(f"DICARD {last_in_key}")
+                    print(f"DISCARD: {last_in_key}")
             self.cache_data.update({key: item})
             self.keyMeta.update({key: datetime.now()})
 
