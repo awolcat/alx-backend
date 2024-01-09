@@ -3,8 +3,10 @@
 """
 
 
+import pytz
 from flask import Flask, render_template, request, g
 from flask_babel import Babel
+from datetime import datetime
 
 
 class Config(object):
@@ -60,14 +62,30 @@ def get_locale():
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
-babel = Babel(app, locale_selector=get_locale)
+def get_timezone():
+    """Get user timezone
+    """
+    if request.args.get('timezone'):
+        tz = request.args.get('timezone')
+    elif g.user and g.user.get('timezone'):
+        tz = g.user.get('timezone')
+    else:
+        tz = None
+    try:
+        pytz.timezone(tz)
+        return tz
+    except Exception:
+        return None
+
+babel = Babel(app, locale_selector=get_locale, timezone_selector=get_timezone)
 
 
 @app.route('/')
 def hello():
     """Simple route
     """
-    return render_template('6-index.html')
+    time = datetime.utcnow()
+    return render_template('7-index.html', time=time)
 
 
 if __name__ == '__main__':
